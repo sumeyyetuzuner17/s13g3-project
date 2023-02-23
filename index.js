@@ -28,7 +28,7 @@ const server = express();
 
 const path = require('path');
 server.use(express.json());
-
+require("dotenv").config()
 
 // 6.2-import
 const hobbitsRouter = require("./api/hobbits/hobbits-router");
@@ -56,7 +56,7 @@ server.use(getLog);
 
 //3- Routing örneği
 server.get("/", (req,res)=> {
-    res.status(200).json({statusCode: 200, message: "Hey, server is up and running..."});
+    res.status(200).json({statusCode: 200, message: process.env.MESSAGE || "Hey, server is up and running..."});
 } )
 
 /*
@@ -106,6 +106,7 @@ server.use((err,req,res,next)=>{
 
 
 //2- Server setup
-server.listen(9000, ()=>{
-    console.log("listening on port 9000")
+const PORT= process.env.PORT||9000
+server.listen(PORT, ()=>{
+    console.log(`listening on port ${PORT}`)
 })
